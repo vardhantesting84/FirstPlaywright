@@ -31,7 +31,7 @@ pipeline {
     post {
         always {
             // Publish JUnit XML report
-            junit 'test-results/junit-report.xml'
+            junit 'allure-report/junit-report.xml'
 
             
         }

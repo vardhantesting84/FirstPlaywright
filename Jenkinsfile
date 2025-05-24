@@ -28,4 +28,24 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            // Publish JUnit XML report
+            junit 'test-results/junit-report.xml'
+
+            // Publish Playwright HTML report
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'playwright-report', // Directory where Playwright saves its HTML report
+                reportFiles: 'index.html',     // The main HTML file for the report
+                reportName: 'Playwright HTML Report'
+            ])
+
+            // Archive Playwright artifacts (screenshots, videos, traces)
+            archiveArtifacts artifacts: 'test-results/**/*', fingerprint: true
+        }
+    }
+
 }
